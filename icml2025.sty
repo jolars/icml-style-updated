@@ -6,6 +6,7 @@
 % Modified by Johan Larsson, 2025
 % - Use newtx instead of times, aligning serif, sans-serif, typerwriter,
 %   and math fonts.
+% - Use caption package to setup captions instead of manually defining themanually defining them.
 % - Formatted icml2025.sty and example_paper.tex
 % - Use title case for section title to 2.9
 %
@@ -107,6 +108,7 @@
 \RequirePackage{eso-pic} % used by \AddToShipoutPicture
 \RequirePackage{forloop}
 \RequirePackage{url}
+\RequirePackage{caption}
 
 %%%%%%%% Options
 \DeclareOption{accepted}{%
@@ -708,20 +710,14 @@ the offending package(s), or layout-changing commands and try again.
 \def\Huge{\@setsize\Huge{28pt}\xxvpt\@xxvpt}
 
 % Revised formatting for figure captions and table titles.
-\newsavebox\newcaptionbox\newdimen\newcaptionboxwid
-
-\long\def\@makecaption#1#2{
-  \vskip 10pt
-  \baselineskip 11pt
-  \setbox\@tempboxa\hbox{#1. #2}
-  \ifdim \wd\@tempboxa >\hsize
-    \sbox{\newcaptionbox}{\small\sl #1.~}
-    \newcaptionboxwid=\wd\newcaptionbox
-    \usebox\newcaptionbox {\footnotesize #2}
-    %        \usebox\newcaptionbox {\small #2}
-  \else
-    \centerline{{\small\sl #1.} {\small #2}}
-  \fi}
+\captionsetup{
+  skip=0.1in,
+  font=small,
+  labelfont={it,small},
+  labelsep=period
+}
+\captionsetup[table]{position=above}
+\captionsetup[figure]{position=below}
 
 \def\fnum@figure{Figure \thefigure}
 \def\fnum@table{Table \thetable}
